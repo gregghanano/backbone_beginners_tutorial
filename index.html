@@ -14,6 +14,11 @@
     <header id='header'>
       <h1>Todos</h1>
       <input id='new-todo' placeholder='What needs to be done?'>
+      <div>
+        <a href='#/'>Show All</a>
+        <a href='#/pending'>Show Pending</a>
+        <a href='#/completed'>Show Completed</a>
+      </div>
     </header>
     <section id='main'>
       <ul id='todo-list'></ul>
@@ -62,7 +67,15 @@
     //------------------
     app.TodoList = Backbone.Collection.extend({
       model: app.Todo,
-      localStorage: new Store('backbone-todo')
+      localStorage: new Store('backbone-todo'),
+      completed: function() {
+        return this.filter(function( todo ){
+          return todo.get('completed');
+        });
+      },
+      remaining: function() {
+        return this.without.apply (this, this.completed() );
+      }
     });
     // instance of collection
     app.todoList = new app.TodoList();
@@ -141,7 +154,19 @@
       },
       addAll: function(){
         this.$('#todo-list').html(''); // clean the todo list
-        app.todoList.each(this.addOne, this);
+        // app.todoList.each(this.addOne, this);
+        // filter todo item list
+        switch(window.filter){
+          case 'pending':
+            _.each(app.todoList.remaining(), this.addOne);
+            break;
+          case 'completed':
+            _.each(app.todoList.completed(), this.addOne);
+            break;
+          default:
+            app.todoList.each(this.addOne, this);
+            break;
+        }
       },
       newAttributes: function(){
         return {
@@ -159,7 +184,7 @@
     },
     setFilter: function(params) {
       console.log('app.router.params = ' + params);
-      window.filter = params.trim() || '';
+      window.filter = params && params.trim ? params.trim() : '';
       app.todoList.trigger('reset');
     }
   })
