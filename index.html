@@ -5,15 +5,21 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <title>Hello World in Backbone.js</title>
   <link rel='stylesheet' type='text/css' href='style.css'>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
 </head>
 <body>
   <!-- ========= -->
   <!-- Your HTML -->
   <!-- ========= -->
+  <div class='container text-nowrap'>
   <section id='todoapp'>
     <header id='header'>
       <h1>Todos</h1>
-      <input id='new-todo' placeholder='What needs to be done?'>
+        <input id='new-todo' placeholder='What needs to be done?'>
       <div>
         <a href='#/'>Show All</a>
         <a href='#/pending'>Show Pending</a>
@@ -21,7 +27,9 @@
       </div>
     </header>
     <section id='main'>
-      <ul id='todo-list'></ul>
+      <blockquote>
+        <ul id='todo-list' class='list-unstyled'></ul>
+      </blockquote>
     </section>
   </section>
   <!-- Templates -->
@@ -30,9 +38,10 @@
       <input class='toggle' type='checkbox' <%= completed ? 'checked' : '' %>>
       <label><%- title %></label>
       <input class='edit' value='<%- title %>'>
-      <button class='destroy'>remove</button>
+      <button class='destroy btn btn-danger btn-xs'>remove</button>
     </div>
   </script>
+</div>
   <!-- ========= -->
   <!-- Libraries -->
   <!-- ========= -->

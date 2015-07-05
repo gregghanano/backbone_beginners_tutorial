@@ -10,3 +10,6 @@
 #todo-list .editing input.edit {
 	display: inline; /* Shows input text box when .editing */
 }
+.form-control {
+	width: 50%;
+}
